@@ -9,6 +9,7 @@ function App() {
 
   useEffect(() => {
     if (text) {
+      setInfo({});
       fetch(`${api}anime?filter[text]=${text}&page[limit]=12`).then(
         (response) => response.json().then((response) => setInfo(response))
       );
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <h1>Animes</h1>
       <SearchInput value={text} onChange={(search) => setText(search)} />
+      {text && !info.data && <span>Carregando...</span>}
       {info.data && (
         <ul className="animes-list">
           {info.data.map((anime) => (
